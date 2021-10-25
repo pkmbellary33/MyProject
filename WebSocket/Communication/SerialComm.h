@@ -8,10 +8,10 @@
 struct SerialCommData;
 class SerialComm :
         public QObject,
-        virtual public Asteria::IComm
+        virtual public MyProject::IComm
 {
     Q_OBJECT
-    Q_INTERFACES(Asteria::IComm)
+    Q_INTERFACES(MyProject::IComm)
     Q_PROPERTY(QString address READ address
                WRITE setAddress NOTIFY addressChanged)
     Q_PROPERTY(QAbstractSocket::SocketState state READ state
@@ -21,7 +21,7 @@ public:
     SerialComm(QObject *parent = 0);
     ~SerialComm();
 
-    // Asteria::IComm Implementation
+    // MyProject::IComm Implementation
     QObject* containerObject();
 
     void setAddress(const QString &address);

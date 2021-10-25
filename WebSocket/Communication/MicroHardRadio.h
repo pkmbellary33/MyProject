@@ -6,10 +6,10 @@
 struct MicroHardRadioData;
 class MicroHardRadio :
         public QObject,
-        virtual public Asteria::IRadio
+        virtual public MyProject::IRadio
 {
     Q_OBJECT
-    Q_INTERFACES(Asteria::IRadio)
+    Q_INTERFACES(MyProject::IRadio)
     Q_PROPERTY(int signalStrength READ signalStrength
                NOTIFY signalStrengthChanged)
 
@@ -17,7 +17,7 @@ public:
     MicroHardRadio(QObject *parent = 0);
     ~MicroHardRadio();
 
-    // Asteria::IRadio Implementation
+    // MyProject::IRadio Implementation
     QObject* containerObject();
 
     void setUserName(const QString& name);

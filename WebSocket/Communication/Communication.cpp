@@ -58,7 +58,7 @@ Communication::~Communication()
     d = 0;
 }
 
-Asteria::IComm *Communication::tcpComm(QObject *key)
+MyProject::IComm *Communication::tcpComm(QObject *key)
 {
     TcpComm *tcpComm = d->tcpCommHash.value(key, 0);
     if(!tcpComm)
@@ -72,7 +72,7 @@ Asteria::IComm *Communication::tcpComm(QObject *key)
     return tcpComm;
 }
 
-Asteria::IRadio *Communication::radio(QObject *key)
+MyProject::IRadio *Communication::radio(QObject *key)
 {
     MicroHardRadio *microRadio = d->microRadioHash.value(key, 0);
     if(!microRadio)
@@ -86,7 +86,7 @@ Asteria::IRadio *Communication::radio(QObject *key)
     return microRadio;
 }
 
-Asteria::IComm *Communication::webComm(QObject *key)
+MyProject::IComm *Communication::webComm(QObject *key)
 {
     WebComm *webComm = d->webCommHash.value(key, 0);
     if(!webComm)

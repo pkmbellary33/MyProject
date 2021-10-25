@@ -9,11 +9,11 @@ struct MicroHardRadioData
     MicroHardRadioData() :
         address("192.168.1.100:23"),
         userName("admin"),
-        password("asteria"),
+        password("MyProject"),
         signalStrength(-1),
         tcpComm(0),
         previousTime(0),
-        radioType(Asteria::IRadio::PicoDDL)
+        radioType(MyProject::IRadio::PicoDDL)
     {}
 
     ~MicroHardRadioData()
@@ -32,7 +32,7 @@ struct MicroHardRadioData
     TcpComm *tcpComm;
     QTime timer;
     int previousTime;
-    Asteria::IRadio::RadioType radioType;
+    MyProject::IRadio::RadioType radioType;
 };
 
 MicroHardRadio::MicroHardRadio(QObject *parent) :
@@ -104,7 +104,7 @@ void MicroHardRadio::setRadioType(int type)
 {
     if(d->radioType != type)
     {
-        d->radioType = Asteria::IRadio::RadioType(type);
+        d->radioType = MyProject::IRadio::RadioType(type);
         emit radioTypeChanged(type);
     }
 }
@@ -143,7 +143,7 @@ void MicroHardRadio::updateSignalStrength(const QByteArray &data)
     QByteArray inputReadyStr = "UserDevice>";
     int rssi = 0;
 
-    if(this->radioType() == Asteria::IRadio::NanoDDL)
+    if(this->radioType() == MyProject::IRadio::NanoDDL)
     {
         signalCommand = "AT+WRSSI?\r\n";
         rssiKey = "RSSI :";

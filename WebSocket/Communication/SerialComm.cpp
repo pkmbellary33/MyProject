@@ -105,7 +105,7 @@ QAbstractSocket::SocketState SerialComm::state()
     if(d->isDownlink)
         return d->state;
 
-    return Asteria::IComm::NoDownlink;
+    return MyProject::IComm::NoDownlink;
 }
 
 int SerialComm::writeData(const QByteArray &data)

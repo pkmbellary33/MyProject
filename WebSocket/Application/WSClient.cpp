@@ -13,7 +13,7 @@ struct WSClientData
     {}
 
     QString webSocketAddress;
-    Asteria::ICommAddendum1 *webComm;
+    MyProject::ICommAddendum1 *webComm;
 };
 
 WSClient::WSClient(const QString& address)
@@ -41,7 +41,7 @@ void WSClient::connectWebSocketServer()
     if(d->webComm)
         this->disconnectWebSocketServer();
 
-    d->webComm = dynamic_cast<Asteria::ICommAddendum1*>(
+    d->webComm = dynamic_cast<MyProject::ICommAddendum1*>(
                 Communication::instance().webComm(this));
 
     if(!d->webComm)

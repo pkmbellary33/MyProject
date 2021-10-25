@@ -4,7 +4,7 @@
 #include <QtPlugin>
 #include <QAbstractSocket>
 
-namespace Asteria
+namespace MyProject
 {
 
 class IComm
@@ -33,7 +33,7 @@ public:
     virtual void dataRecieved(const QByteArray &data) = 0;
 };
 
-class ICommAddendum1 : virtual public Asteria::IComm
+class ICommAddendum1 : virtual public MyProject::IComm
 {
 public:
     virtual int writeText(const QString &text) = 0;
@@ -44,7 +44,7 @@ public:
 
 }
 
-Q_DECLARE_INTERFACE(Asteria::IComm, "com.asteria.IComm/1.0")
-Q_DECLARE_INTERFACE(Asteria::ICommAddendum1, "com.asteria.ICommAddendum1/1.0")
+Q_DECLARE_INTERFACE(MyProject::IComm, "com.MyProject.IComm/1.0")
+Q_DECLARE_INTERFACE(MyProject::ICommAddendum1, "com.MyProject.ICommAddendum1/1.0")
 
 #endif // ICOMM_H

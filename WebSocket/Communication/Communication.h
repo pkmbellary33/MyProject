@@ -5,7 +5,7 @@
 
 class QObject;
 
-namespace Asteria
+namespace MyProject
 {
 
 class IComm;
@@ -20,9 +20,9 @@ public:
     static Communication &instance();
     ~Communication();
 
-    Asteria::IComm *tcpComm(QObject *key = 0);
-    Asteria::IRadio *radio(QObject *key = 0);
-    Asteria::IComm *webComm(QObject *key = 0);
+    MyProject::IComm *tcpComm(QObject *key = 0);
+    MyProject::IRadio *radio(QObject *key = 0);
+    MyProject::IComm *webComm(QObject *key = 0);
 
 protected:
     Communication();

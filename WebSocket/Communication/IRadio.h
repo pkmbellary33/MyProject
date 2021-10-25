@@ -3,7 +3,7 @@
 
 #include <QtPlugin>
 
-namespace Asteria
+namespace MyProject
 {
 
 class IRadio
@@ -43,6 +43,6 @@ public:
 
 }
 
-Q_DECLARE_INTERFACE(Asteria::IRadio, "com.asteria.IRadio/1.0")
+Q_DECLARE_INTERFACE(MyProject::IRadio, "com.MyProject.IRadio/1.0")
 
 #endif // IRADIO_H
