@@ -41,8 +41,8 @@ Application::Application(QObject *parent)
             SIGNAL(messageReceived(QString)),
             this,
             SLOT(onMessageReceived(QString)));
-    d->telemetryServer->listen(QHostAddress::Any, 10001);
-    qDebug() << "Listening to 0.0.0.0:10001";
+    d->telemetryServer->listen(QHostAddress::Any, 1000);
+    qDebug() << "Listening to 0.0.0.0:1000";
     d->timerId = this->startTimer(100);
 }
 

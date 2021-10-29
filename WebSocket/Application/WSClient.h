@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QAbstractSocket>
+#include <QFile>
 
 struct WSClientData;
 class WSClient : public QObject
@@ -19,7 +20,7 @@ class WSClient : public QObject
     Q_ENUMS(MODE)
 
 public:
-    WSClient(const QString& address = "ws://localhost:10001");
+    WSClient(const QString& address = "ws://localhost:1000");
     ~WSClient();
 
     void connectWebSocketServer();
@@ -62,6 +63,7 @@ private slots:
 
     // receives the telemetry in JSON string format inside this slot
     void onMessageReceived(const QString &text);
+
 signals:
     void mapDataChanged();
 private:
@@ -73,6 +75,7 @@ private:
     float m_heading;
     float m_mode;
     float m_sigstr;
+    QFile file;
 };
 
 #endif // WSCLIENT_H

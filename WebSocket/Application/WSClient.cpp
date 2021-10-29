@@ -8,7 +8,7 @@
 struct WSClientData
 {
     WSClientData() :
-        webSocketAddress("ws://localhost:10001"),
+        webSocketAddress("ws://localhost:1000"),
         webComm(0)
     {}
 
@@ -20,20 +20,21 @@ WSClient::WSClient(const QString& address)
 {
     d = new WSClientData;
     d->webSocketAddress = address;
-
-    QFile file("./log.csv");
+    QString fileName = "./log"+QDate::currentDate().toString() +"_"+ QTime::currentTime().toString("hh-mm-ss")+".csv";
+    file.setFileName(fileName);
     if(!file.exists())
     {
-        file.open(QIODevice::WriteOnly);
+        file.open(QIODevice::Append);
         QTextStream stream(&file);
         stream <<"Signal\tCharge\tLatitude\tLongitude\tAltitude\tHeading\tMode\n";
-        file.close();
+        qDebug()<<"Creating the file here:"<<fileName;
     }
 }
 
 WSClient::~WSClient()
 {
-
+    file.close();
+    qDebug()<<"closing the file here"<<file.fileName();
 }
 
 void WSClient::connectWebSocketServer()
@@ -105,12 +106,8 @@ void WSClient::onMessageReceived(const QString &text)
         setMode(jsonObject.value("mode").toDouble());
     if(jsonObject.contains("signalStrength"))
         setSigstr(jsonObject.value("signalStrength").toDouble());
-
-    QFile file("./log.csv");
-    file.open(QIODevice::Append);
     QTextStream stream(&file);
     stream <<sigstr()<< "\t"<< charge() <<"\t"<< latitude() <<"\t"<< longitude() <<"\t"<< altitude() <<"\t"<< heading() <<"\t"<< mode() <<"\n";
-    file.close();
 }
 
 

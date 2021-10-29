@@ -14,7 +14,7 @@ public:
     ~TelemetryServer();
 
     // listens on ws://localhost:port
-    void listen(const QHostAddress &host = QHostAddress::LocalHost, int port=10001);
+    void listen(const QHostAddress &host = QHostAddress::LocalHost, int port=1000);
     void writeToClients(const QString &data);
 
     Q_SIGNAL void messageReceived(const QString &message);
