@@ -21,7 +21,6 @@ public:
     ~Communication();
 
     MyProject::IComm *tcpComm(QObject *key = 0);
-    MyProject::IRadio *radio(QObject *key = 0);
     MyProject::IComm *webComm(QObject *key = 0);
 
 protected:

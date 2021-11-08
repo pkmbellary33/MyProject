@@ -1,9 +1,6 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
-import QtQuick.Layouts 1.12
-//! [RoutingNavigation plumbing]
 import QtQuick.Window 2.12
-import GeneralMagic 2.0
 import WSClient 1.0
 import QtWebEngine 1.0
 
@@ -11,9 +8,10 @@ Window {
     visible: true
     width: 640
     height: 675
-    title: qsTr("WS Client")
+    title: qsTr("Drone Client")
 
     property int zoomLevel: 16
+    property string token: "pk.eyJ1IjoiamRqb2huZG93IiwiYSI6ImNrdmpmeTVieTAxZXIydW81eHRraG9hcHAifQ.a75zMLUdxV6HxN_mpn8VWg"
 
     Component.onCompleted: wsClient.mapDataChanged.connect(updateData)
 
@@ -21,9 +19,7 @@ Window {
     {
         if(engine.loading === false)
         {
-            //engine.url = "https://api.mapbox.com/styles/v1/mapbox/light-v10/static/pin-s-l+000("+wsClient.longitude.toPrecision(8)+","+wsClient.latitude.toPrecision(8)+")/"+wsClient.longitude.toPrecision(8)+","+wsClient.latitude.toPrecision(8)+","+zoomLevel+"/620x350?access_token=pk.eyJ1IjoiamRqb2huZG93IiwiYSI6ImNrdjI4YnB1aDN2bGozMHM3NG4zcmdkbDUifQ.-G5Wwny4uDE9QvUjL-EcEg"
-            //engine.url = "https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/geojson(%7B%22type%22%3A%22Point%22%2C%22coordinates%22%3A%5B-73.99%2C40.7%5D%7D)/"+wsClient.longitude+","+wsClient.latitude+",12/620x350?access_token=pk.eyJ1IjoiamRqb2huZG93IiwiYSI6ImNrdjI4YnB1aDN2bGozMHM3NG4zcmdkbDUifQ.-G5Wwny4uDE9QvUjL-EcEg"
-            engine.url = "https://api.mapbox.com/styles/v1/mapbox/satellite-v9/static/"+wsClient.longitude.toPrecision(8)+","+wsClient.latitude.toPrecision(8)+","+zoomLevel+",0,0/620x350?access_token=pk.eyJ1IjoiamRqb2huZG93IiwiYSI6ImNrdjI4YnB1aDN2bGozMHM3NG4zcmdkbDUifQ.-G5Wwny4uDE9QvUjL-EcEg"
+            engine.url = "https://api.mapbox.com/styles/v1/mapbox/satellite-v9/static/"+wsClient.longitude.toPrecision(8)+","+wsClient.latitude.toPrecision(8)+","+zoomLevel+",0,0/620x350?access_token="+token
             update(engine);
         }
     }

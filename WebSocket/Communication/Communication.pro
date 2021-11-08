@@ -33,7 +33,6 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     Communication.cpp \
     TcpComm.cpp \
-    MicroHardRadio.cpp \
     WebComm.cpp
 
 HEADERS += \
@@ -41,8 +40,6 @@ HEADERS += \
     communication_global.h \
     TcpComm.h \
     IComm.h \
-    IRadio.h \
-    MicroHardRadio.h \
     WebComm.h
 
 unix {

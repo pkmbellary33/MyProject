@@ -33,7 +33,7 @@ TelemetryServer::~TelemetryServer()
 void TelemetryServer::listen(const QHostAddress &host, int port)
 {
     if(d->server)
-        qDebug() << "listen" << d->server->listen(host, port) << host << port;
+        d->server->listen(host, port);
 }
 
 void TelemetryServer::writeToClients(const QString &data)
@@ -47,7 +47,6 @@ void TelemetryServer::onNewConnection()
     if(!d->server)
         return;
 
-    qDebug() << "new telemetry connection";
     QWebSocket *websocket = d->server->nextPendingConnection();
     connect(websocket,
             SIGNAL(textMessageReceived(QString)),
@@ -59,7 +58,6 @@ void TelemetryServer::onNewConnection()
             SLOT(onClientDisconnected()));
 
     d->websockets << websocket;
-    qDebug() << QString("Clients: %1").arg(d->websockets.count());
 }
 
 void TelemetryServer::onClientDisconnected()
@@ -72,12 +70,9 @@ void TelemetryServer::onClientDisconnected()
 
     if(!websocket)
     {
-        qDebug() << "no websocket!";
         return;
     }
 
-    qDebug() << "Client Disconnected!";
     d->websockets.removeAll(websocket);
-    qDebug() << QString("Clients: %1").arg(d->websockets.count());
 }
 

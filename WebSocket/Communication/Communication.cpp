@@ -1,6 +1,4 @@
 #include "Communication.h"
-
-#include "MicroHardRadio.h"
 #include "TcpComm.h"
 #include "WebComm.h"
 
@@ -18,13 +16,6 @@ struct CommunicationData
                 value->deleteLater();
         }
 
-        Q_FOREACH(QObject *key, microRadioHash.keys())
-        {
-            QObject *value = microRadioHash.take(key);
-            if(value)
-                value->deleteLater();
-        }
-
         Q_FOREACH(QObject *key, webCommHash.keys())
         {
             QObject *value = webCommHash.take(key);
@@ -35,8 +26,6 @@ struct CommunicationData
 
     QHash<QObject *, QPointer<TcpComm> >
     tcpCommHash;
-    QHash<QObject *, QPointer<MicroHardRadio> >
-    microRadioHash;
     QHash<QObject *, QPointer<WebComm> >
     webCommHash;
 };
@@ -70,20 +59,6 @@ MyProject::IComm *Communication::tcpComm(QObject *key)
     }
 
     return tcpComm;
-}
-
-MyProject::IRadio *Communication::radio(QObject *key)
-{
-    MicroHardRadio *microRadio = d->microRadioHash.value(key, 0);
-    if(!microRadio)
-    {
-        microRadio =  new MicroHardRadio(key);
-
-        if(key)
-            d->microRadioHash.insert(key, microRadio);
-    }
-
-    return microRadio;
 }
 
 MyProject::IComm *Communication::webComm(QObject *key)

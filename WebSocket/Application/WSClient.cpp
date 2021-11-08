@@ -20,21 +20,16 @@ WSClient::WSClient(const QString& address)
 {
     d = new WSClientData;
     d->webSocketAddress = address;
-    QString fileName = "./log"+QDate::currentDate().toString() +"_"+ QTime::currentTime().toString("hh-mm-ss")+".csv";
+    QString fileName = "./log_"+QDate::currentDate().toString("dd-MM-yyyy") +"_"+ QTime::currentTime().toString("hh-mm-ss")+".csv";
     file.setFileName(fileName);
-    if(!file.exists())
-    {
-        file.open(QIODevice::Append);
-        QTextStream stream(&file);
-        stream <<"Signal\tCharge\tLatitude\tLongitude\tAltitude\tHeading\tMode\n";
-        qDebug()<<"Creating the file here:"<<fileName;
-    }
+    file.open(QIODevice::Append);
+    QTextStream stream(&file);
+    stream <<"Signal\tCharge\tLatitude\tLongitude\tAltitude\tHeading\tMode\n";
 }
 
 WSClient::~WSClient()
 {
     file.close();
-    qDebug()<<"closing the file here"<<file.fileName();
 }
 
 void WSClient::connectWebSocketServer()
@@ -74,18 +69,17 @@ void WSClient::disconnectWebSocketServer()
 
 void WSClient::writeMessage(const QString &message)
 {
-    qDebug() << "wsClient write: " << message;
     QJsonObject obj;
     obj["command"] = message;
     QJsonDocument doc(obj);
     QString strJson(doc.toJson(QJsonDocument::Compact));
     if(d->webComm)
-        qDebug() << d->webComm->writeText(strJson);
+        d->webComm->writeText(strJson);
 }
 
 void WSClient::onStateChanged(QAbstractSocket::SocketState state)
 {
-    qDebug() << "\nWS state: " << state;
+
 }
 
 void WSClient::onMessageReceived(const QString &text)
@@ -103,7 +97,16 @@ void WSClient::onMessageReceived(const QString &text)
     if(jsonObject.contains("longitude"))
         setLongitude(jsonObject.value("longitude").toDouble());
     if(jsonObject.contains("mode"))
-        setMode(jsonObject.value("mode").toDouble());
+    {
+        if(jsonObject.value("mode").toString() == "NAV")
+            setMode(MODE_NAV);
+        else if(jsonObject.value("mode").toString() == "LTR")
+            setMode(MODE_LTR);
+        else if(jsonObject.value("mode").toString() == "LND")
+            setMode(MODE_LND);
+        else
+            setMode(MODE_RTL);
+    }
     if(jsonObject.contains("signalStrength"))
         setSigstr(jsonObject.value("signalStrength").toDouble());
     QTextStream stream(&file);

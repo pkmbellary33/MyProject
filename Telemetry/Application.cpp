@@ -2,7 +2,6 @@
 #include <QFile>
 #include <QStringList>
 #include <QTimerEvent>
-#include <QDebug>
 #include <QJsonDocument>
 #include <QJsonObject>
 
@@ -34,7 +33,7 @@ Application::Application(QObject *parent)
         d->entries = data.split("\r\n", QString::SkipEmptyParts);
     }
     else
-        qDebug() << "error: " << telemetryFile.errorString();
+        telemetryFile.errorString();
 
     d->telemetryServer = new TelemetryServer(this);
     connect(d->telemetryServer,
@@ -42,7 +41,6 @@ Application::Application(QObject *parent)
             this,
             SLOT(onMessageReceived(QString)));
     d->telemetryServer->listen(QHostAddress::Any, 1000);
-    qDebug() << "Listening to 0.0.0.0:1000";
     d->timerId = this->startTimer(100);
 }
 
@@ -72,5 +70,4 @@ void Application::onMessageReceived(const QString &message)
 {
     QJsonDocument msgDoc = QJsonDocument::fromJson(message.toUtf8());
     d->mode = msgDoc.object()["command"].toString();
-    qDebug() << "command received: " << d->mode;
 }
